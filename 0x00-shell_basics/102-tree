@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p welcome/ welcome/to/school welcome/to/school
+mkdir -q welcome/to/school
 
 
 
