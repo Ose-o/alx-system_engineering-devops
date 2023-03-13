@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Define an associative array to store the count of requests by each host
+declare -A hosts
+
+# Read the TSV-formatted log file line by line
+while read -r line; do
+  # Split the line into fields using tabs as a delimiter
+  fields=($line)
+
+  # Get the host field from the line
+  host=${fields[0]}
+
+  # Increment the count of requests for this host in the associative array
+  ((hosts[$host]++))
+done
+
+# Sort the hosts by the number of requests, in descending order
+sorted_hosts=$(for host in "${!hosts[@]}"; do printf "%s\t%s\n" "$host" "${hosts[$host]}"; done | sort -rn -k2)
+
+# Display the top 11 hosts
+echo "$sorted_hosts" | head -n 11
+
